@@ -1,13 +1,13 @@
-package io.packstrap.transactionparsercli;
+package io.packstrap.taskexecutor;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TransactionParserCliApplication {
+public class TaskExecutorApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TransactionParserCliApplication.class, args);
+		SpringApplication.run(TaskExecutorApplication.class, args);
 	}
 
 }

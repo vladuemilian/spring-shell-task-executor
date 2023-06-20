@@ -1,9 +1,6 @@
-package io.packstrap.transactionparsercli.domain;
+package io.packstrap.taskexecutor.module.transaction.domain;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.ZonedDateTime;
@@ -12,6 +9,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Transaction {
     private String address;
     private Integer age;
