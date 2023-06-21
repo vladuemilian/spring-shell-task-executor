@@ -7,7 +7,6 @@ import io.packstrap.taskexecutor.module.transaction.dto.TransactionDto;
 import io.packstrap.taskexecutor.module.transaction.service.TransactionService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.shell.Availability;
 import org.springframework.shell.command.CommandContext;
 import org.springframework.shell.command.CommandRegistration;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,6 @@ public class CsvReader implements Task, Discoverable {
                 .command("csv-reader")
                 .description("Reads a CSV file and outputs the content as a Transaction object.")
                 .group(TaskType.READER.name())
-                //.availability(av -> Availability.available())
                 .withTarget()
                 .consumer(this::execute)
                 .and()

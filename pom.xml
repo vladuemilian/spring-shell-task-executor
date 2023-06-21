@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>io.packstrap</groupId>
-	<artifactId>transaction-parser-cli</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>transaction-parser-cli</name>
-	<description>A transaction parser tool for command line</description>
+	<artifactId>task-executor</artifactId>
+	<version>1.0.0</version>
+	<name>task-executor</name>
+	<description>A task executor tool for command line</description>
 	<properties>
 		<java.version>17</java.version>
 		<spring-shell.version>3.1.1</spring-shell.version>

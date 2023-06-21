@@ -131,7 +131,7 @@ public class TransactionServiceTest {
     public void should_pretty_print() {
         //GIVEN
         Map<LocalDate, BigDecimal> amounts = new HashMap<>();
-        amounts.put(LocalDate.now(), BigDecimal.TEN);
+        amounts.put(LocalDate.of(2023, 6, 20), BigDecimal.TEN);
 
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setTotalTransactionAmount(BigDecimal.TEN);
@@ -156,7 +156,7 @@ public class TransactionServiceTest {
     public void should_json_print() {
         //GIVEN
         Map<LocalDate, BigDecimal> amounts = new HashMap<>();
-        amounts.put(LocalDate.now(), BigDecimal.TEN);
+        amounts.put(LocalDate.of(2023, 6, 20), BigDecimal.TEN);
 
         TransactionDto transactionDto = new TransactionDto();
         transactionDto.setTotalTransactionAmount(BigDecimal.TEN);

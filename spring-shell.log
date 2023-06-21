@@ -48,3 +48,4 @@
 1687159048432:csv-reader -f /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv
 1687159054300:pretty-writer
 1687159065701:json-writer
+1687331644762:csv-reader -f

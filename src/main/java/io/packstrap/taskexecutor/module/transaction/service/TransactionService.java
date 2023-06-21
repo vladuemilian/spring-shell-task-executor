@@ -8,7 +8,6 @@ import io.packstrap.taskexecutor.module.transaction.domain.Transaction;
 import io.packstrap.taskexecutor.module.transaction.dto.TransactionDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.ApplicationContext;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class TransactionService {
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E MMM d yyyy HH:mm:ss 'GMT'Z (zzzz)");
 
     public boolean write(TransactionDto transactionDto, Optional<String> filename) {
-        if(filename.isEmpty()) {
+        if (filename.isEmpty()) {
             throw new ServiceException("No filename provided");
         }
         try {
@@ -54,10 +53,11 @@ public class TransactionService {
             throw new ServiceException(e);
         }
     }
+
     public TransactionDto csvRead(String inputFilename) {
         Resource resource = resourceLoader.getResource("file://" + inputFilename);
 
-        if(!resource.exists()) {
+        if (!resource.exists()) {
             throw new ServiceException("File not found: " + inputFilename);
         }
         Pattern pattern = Pattern.compile(",");
@@ -65,14 +65,10 @@ public class TransactionService {
         TransactionDto transactionDto = new TransactionDto(inputFilename);
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(resource.getInputStream()));
-            while(reader.ready()) {
+            while (reader.ready()) {
                 reader.lines().skip(1).map(line -> {
                     String[] values = pattern.split(line);
-                    return Transaction.builder()
-                            .transactionAmount(parseTransactionAmount(values, transactionDto.getProcessedRecords()))
-                            .transactionDate(parseDate(values, transactionDto.getProcessedRecords()))
-                            //NOTE: the other fields are not mapped as they are not used anywhere in the logic
-                            .build();
+                    return buildFromStringArray(transactionDto, values);
                 }).forEach(transactionDto::process);
             }
         } catch (IOException e) {
@@ -81,11 +77,19 @@ public class TransactionService {
         return transactionDto;
     }
 
+    private Transaction buildFromStringArray(TransactionDto transactionDto, String[] values) {
+        return Transaction.builder()
+                .transactionAmount(parseTransactionAmount(values, transactionDto.getProcessedRecords()))
+                .transactionDate(parseDate(values, transactionDto.getProcessedRecords()))
+                //NOTE: the other fields are not mapped as they are not used anywhere in the logic
+                .build();
+    }
+
     private BigDecimal parseTransactionAmount(String[] values, Long line) {
         try {
             return new BigDecimal(values[9]);
         } catch (NumberFormatException e) {
-            throw new ServiceException(String.format("Invalid transaction amount on line: %d: %s", line+1, String.join(",", values)));
+            throw new ServiceException(String.format("Invalid transaction amount on line: %d: %s", line + 1, String.join(",", values)));
         }
     }
 
@@ -93,7 +97,7 @@ public class TransactionService {
         try {
             return ZonedDateTime.parse(values[10], formatter);
         } catch (DateTimeException e) {
-            throw new ServiceException(String.format("Invalid date format on line: %d: %s", line+1, String.join(",", values)));
+            throw new ServiceException(String.format("Invalid date format on line: %d: %s", line + 1, String.join(",", values)));
         }
     }
 
@@ -103,12 +107,12 @@ public class TransactionService {
                 .reduce((a, b) -> String.format("%s\n%s", a, b))
                 .orElse("");
         return String.format("==== Run Summary ====\n" +
-                "Input filename: src/main/test/resources/transaction_data.csv\n" +
-                "Total records processed: %d\n" +
-                "Total transaction amount: %s\n" +
-                "Transaction amount per day:\n" +
-                "%s\n" +
-                "==== End Run Summary ====", transactionDto.getProcessedRecords(),
+                        "Input filename: src/main/test/resources/transaction_data.csv\n" +
+                        "Total records processed: %d\n" +
+                        "Total transaction amount: %s\n" +
+                        "Transaction amount per day:\n" +
+                        "%s\n" +
+                        "==== End Run Summary ====", transactionDto.getProcessedRecords(),
                 transactionDto.getTotalTransactionAmount(),
                 amounts);
     }
