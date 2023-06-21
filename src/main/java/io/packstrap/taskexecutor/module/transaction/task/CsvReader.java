@@ -23,7 +23,8 @@ public class CsvReader implements Task, Discoverable {
     public CommandRegistration command() {
         return CommandRegistration.builder()
                 .command("csv-reader")
-                .description("Reads a CSV file and outputs the content as a Transaction object.")
+                .description("Reads a CSV file and outputs the content as a Transaction object. The supported format of the CSV is: " +
+                        "address,age,email,firstName,ip,joinDate,lastName,leaveDate,referral,transactionAmount,transactionDate,zip")
                 .group(TaskType.READER.name())
                 .withTarget()
                 .consumer(this::execute)
@@ -49,8 +50,9 @@ public class CsvReader implements Task, Discoverable {
         Optional<String> outputFile = Optional.ofNullable(context.getOptionValue("output"));
         TransactionDto transactionDto = transactionService.csvRead(file);
         transactionContext.setLastTransactionDto(transactionDto);
-        transactionService.write(transactionDto, outputFile);
-        System.out.println("Successfully read CSV file.");
+        outputFile.ifPresent(s -> transactionService.write(transactionDto, s));
+        System.out.println("Successfully read CSV file.\n");
+        System.out.println(transactionService.jsonPrint(transactionDto));
         return true;
     }
 }

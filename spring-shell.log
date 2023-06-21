@@ -49,3 +49,28 @@
 1687159054300:pretty-writer
 1687159065701:json-writer
 1687331644762:csv-reader -f
+1687333875847:help
+1687335275356:csv-reader -help
+1687335278844:csv-reader --help
+1687335285860:csv-reader help
+1687335289937:csv-reader --help
+1687335296606:csv-reader
+1687335300297:help
+1687335304207:csv-reader -h
+1687335308791:csv-reader --help
+1687335318071:help csv-reader
+1687335563404:csv-reader --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv --output //Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output.txt
+1687335756402:csv-reader --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv
+1687335779441:csv-reader --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv --output //Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output.txt
+1687335874760:csv-reader --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv
+1687336490395:pretty-writer
+1687336502849:pretty-writer --file
+1687336525268:/Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli --file output.txt
+1687336532111:pretty-writer /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli --file output.txt
+1687336551845:pretty-writer --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output.txt
+1687336620735:csv-reader --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv
+1687336624062:pretty-writer --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output.txt
+1687336626324:pretty-writer --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output2.txt
+1687336639626:pretty-writer --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output.txt
+1687336716906:json-writer --file /Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/output.txt
+1687336720311:json-writer

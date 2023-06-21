@@ -36,6 +36,6 @@ public class CsvReaderTest {
         assertThat(result).isTrue();
         verify(transactionService).csvRead("test-filename");
         verify(transactionContext).setLastTransactionDto(transactionDto);
-        verify(transactionService).write(transactionDto, Optional.of("test-output-filename"));
+        verify(transactionService).write(transactionDto, "test-output-filename");
     }
 }

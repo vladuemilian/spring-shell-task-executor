@@ -28,25 +28,28 @@ import java.util.regex.Pattern;
 public class TransactionService {
     private final ObjectMapper objectMapper;
     private final ResourceLoader resourceLoader;
-    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E MMM d yyyy HH:mm:ss 'GMT'Z (zzzz)");
+    private final String DATE_PATTERN = "E MMM d yyyy HH:mm:ss 'GMT'Z (zzzz)";
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
-    public boolean write(TransactionDto transactionDto, Optional<String> filename) {
+    public String write(TransactionDto transactionDto, String filename) {
+        String output = null;
         if (filename.isEmpty()) {
             throw new ServiceException("No filename provided");
         }
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filename.get()));
-            writer.write(objectMapper.writeValueAsString(transactionDto));
+            output = objectMapper.writeValueAsString(transactionDto);
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+            writer.write(output);
             writer.close();
         } catch (Exception e) {
             throw new ServiceException(e);
         }
-        return true;
+        return output;
     }
 
     public TransactionDto read(String inputFilename) {
-        Resource resource = resourceLoader.getResource("file://" + inputFilename);
         try {
+            Resource resource = resourceLoader.getResource("file://" + inputFilename);
             String asString = StreamUtils.copyToString(resource.getInputStream(), Charset.defaultCharset());
             return objectMapper.readValue(asString, TransactionDto.class);
         } catch (IOException e) {
@@ -89,7 +92,7 @@ public class TransactionService {
         try {
             return new BigDecimal(values[9]);
         } catch (NumberFormatException e) {
-            throw new ServiceException(String.format("Invalid transaction amount on line: %d: %s", line + 1, String.join(",", values)));
+            throw new ServiceException(String.format("Invalid transaction amount on line: %d: for %s", line + 1, values[9]));
         }
     }
 
@@ -97,7 +100,8 @@ public class TransactionService {
         try {
             return ZonedDateTime.parse(values[10], formatter);
         } catch (DateTimeException e) {
-            throw new ServiceException(String.format("Invalid date format on line: %d: %s", line + 1, String.join(",", values)));
+            throw new ServiceException(String.format("Invalid date format on line: %d: %s - Expected format is: " +
+                    "", line + 1, values[10]));
         }
     }
 

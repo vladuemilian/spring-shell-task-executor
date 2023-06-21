@@ -1,0 +1,1 @@
+{"inputFilename":"/Users/sorinvladu/Projects/anonossoftware/transaction-parser-cli/transaction_data.csv","processedRecords":200,"totalTransactionAmount":103351.83,"amountsPerDay":{"2019-04-29":94065.70,"2019-04-28":9286.13}}

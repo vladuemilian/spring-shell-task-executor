@@ -41,10 +41,10 @@ public class TransactionServiceTest {
         transactionDto.setAmountsPerDay(amounts);
 
         //WHEN
-        boolean result = transactionService.write(transactionDto, Optional.of(filename));
+        String result = transactionService.write(transactionDto, filename);
 
         //THEN
-        assertThat(result).isTrue();
+        assertThat(result).isNotNull();
 
         File file = new File(filename);
         assertThat(file.exists()).isTrue();
