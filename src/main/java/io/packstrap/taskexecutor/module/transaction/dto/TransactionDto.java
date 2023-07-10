@@ -17,16 +17,9 @@ import java.util.Map;
 public class TransactionDto {
     public TransactionDto(String inputFilename) {
         this.inputFilename = inputFilename;
-
-        if(processedRecords == null) {
-            processedRecords = 0L;
-        }
-        if(totalTransactionAmount == null) {
-            totalTransactionAmount = BigDecimal.ZERO;
-        }
-        if(amountsPerDay == null) {
-            amountsPerDay = new HashMap<>();
-        }
+        this.processedRecords = 0L;
+        this.totalTransactionAmount = BigDecimal.ZERO;
+        this.amountsPerDay = new HashMap<>();
     }
 
     private String inputFilename;
